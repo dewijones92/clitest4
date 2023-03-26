@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e; set -x;
+ba_url="$1"
+export DISPLAY=:10.0; 
+export DEBUG=pw:api;
+cd /home/dewi/code/ghost-cursor-playwright;
+npm run build;
+(exec ub node lib/britishAirways.js "$ba_url" |& ub tee  /dev/stderr | ub grep -m1 "{{FLIGHTDATA}}") 2>&1
+
+
